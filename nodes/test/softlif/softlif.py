@@ -25,17 +25,17 @@ ann = torch.load(pretrained)['model']
 snn = Hunsberger2015_SNN(ann)
 
 if torch.cuda.is_available():
-	images = images.cuda()
-	labels = labels.cuda()
-	snn.cuda()
+    images = images.cuda()
+    labels = labels.cuda()
+    snn.cuda()
 
 criterion = None
 
 with torch.no_grad():
-	outs = snn(images, num_steps)
+    outs = snn(images, num_steps)
 
-	""" outs 형태에 따른 outs 처리"""
+    """ outs 형태에 따른 outs 처리"""
 	
-	loss = criterion(outs, labels)
-	num_corrects = torch.argmax(outs, dim=1).eq(labels).sum(dim=0)
+    loss = criterion(outs, labels)
+    num_corrects = torch.argmax(outs, dim=1).eq(labels).sum(dim=0)
 
